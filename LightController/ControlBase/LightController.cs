@@ -54,15 +54,25 @@ namespace MysticLightController
             }
 
             // Fill dictionary
-            for(int i = 0; i < devTypes.Length; i++)
+            Console.WriteLine($"Found {devTypes.Length} devices");
+            for (int i = 0; i < devTypes.Length; i++)
             {
                 string device = devTypes[i];
                 uint ledAmount = UInt32.Parse(ledCount[i]);
+
+                Console.WriteLine($"Adding {device} with {ledAmount} LEDs");
+
                 if (ledAmount == 0)
                     continue;
-                
-                for(uint ledIndex = 0; ledIndex < ledAmount; ledIndex++)
-                    _availableLEDs[device].Append(new LED(device, ledIndex));
+
+                List<LED> leds = new List<LED>();
+                for (uint ledIndex = 0; ledIndex < ledAmount; ledIndex++)
+                {
+                    Console.WriteLine($"\tAdding LED {ledIndex}");
+                    leds.Add(new LED(device, ledIndex));
+                    Console.WriteLine($"\t{leds.Last()}");
+                }
+                _availableLEDs.Add(device, leds.ToArray());
             }
         }
 

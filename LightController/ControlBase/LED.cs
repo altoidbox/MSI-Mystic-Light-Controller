@@ -14,9 +14,11 @@ namespace MysticLightController
         // ----- Public constant properties 
         public uint Identifier { get; }
         public string Device { get; }
+        public string Name { get; }
         public uint MaxBrightness { get; }
         public uint MaxSpeed { get; }
         public string[] Styles { get => _styles.ToArray(); }
+
 
         // ---- Public variable properties
         public uint Brightness
@@ -111,8 +113,9 @@ namespace MysticLightController
             MaxBrightness = maxBright;
 
             // Led styles
-            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedInfo(Device, Identifier, out string _, out string[] styles), out error))
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedInfo(Device, Identifier, out string name, out string[] styles), out error))
                 throw new LightControllerException(errorBase + "error while trying to get led styles\n\t" + error);
+            Name = name;
             _styles = new List<string>(styles);
 
             // Current led style
@@ -143,7 +146,7 @@ namespace MysticLightController
             availableStyles = availableStyles[0..^2];
 
             string description = 
-                $"LED {Identifier} (device: {Device}):\n" +
+                $"LED {Identifier} (device: {Device}, Name: {Name}):\n" +
                 $"\tCurrent color: {LEDColor}\n" +
                 $"\tCurrent style: {CurrentStyle}\n" +
                 $"\tCurrent speed: {Speed} (Max: {MaxSpeed})\n" +

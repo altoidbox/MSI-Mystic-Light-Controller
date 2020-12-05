@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <SignAssembly>false</SignAssembly>
@@ -17,6 +17,7 @@ Mystic Light SDK.</Description>
     <Version>1.0.1</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <AssemblyName>MysticLightController</AssemblyName>
+    <StartupObject>MysticLightController.Program</StartupObject>
   </PropertyGroup>
 
   <!--<ItemGroup>
